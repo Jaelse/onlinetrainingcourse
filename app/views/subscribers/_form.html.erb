@@ -1,0 +1,47 @@
+<%= form_with(model: subscriber, local: true) do |form| %>
+  <% if subscriber.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(subscriber.errors.count, "error") %> prohibited this subscriber from being saved:</h2>
+
+      <ul>
+      <% subscriber.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :first_name %>
+    <%= form.text_field :fname %>
+  </div>
+
+  <div class="field">
+    <%= form.label :last_name %>
+    <%= form.text_field :lname %>
+  </div>
+
+  <div class="field">
+    <%= form.label :citizen_id %>
+    <%= form.text_field :citizenid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :profession %>
+    <%= form.select(:substype, [['Student', 1], ['Instructor', 2], ['Other', 3]]) %>  
+  </div>
+
+  <div class="field">
+    <%= form.label :your_instructor_or_student_ID %>
+    <%= form.text_field :insorstid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :deptartment %>
+    <%= form.text_field :dept %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
