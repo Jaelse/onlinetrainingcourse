@@ -8,4 +8,10 @@ class SubscriptionPolicy < ApplicationPolicy
   def subscribe?
     true
   end
+
+  def subscriptions?
+    if user.user_role === 'student'
+      true
+    end
+  end
 end

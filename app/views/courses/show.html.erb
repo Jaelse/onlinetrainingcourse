@@ -10,6 +10,6 @@
   <%= Subscriber.where(id: @course.subscriber_id).first.fname %>
 </p>
 
-<%= link_to 'Subscribe', subscribe_path(@course.id) if policy(@course).subscribe? %>
+<%= link_to 'Subscribe', subscribe_path(@course) if policy(@course).subscribe? %>
 <%= link_to 'Edit', edit_course_path(@course) if policy(@course).update? %>
 <%= link_to 'Back', home_path %>

@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   get 'main/subscribe/:course_id' => 'main#subscribe', as: :subscribe
 
+  post 'main/subscriptions' => 'main#subscriptions', as: :subscriptions
+
   root 'main#home'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

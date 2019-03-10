@@ -2,7 +2,6 @@ class MainController < ApplicationController
   before_action :subscribers_information! 
   before_action :set_course, only: [:course_index]
   before_action :set_group, only: [:groups]
-  before_action :set_subscribe, only: [:subscribe]
 
   after_action :verify_authorized
 
@@ -46,10 +45,24 @@ class MainController < ApplicationController
   end
 
   def subscribe
-    @subscribe = Subscription.new
+    @subscription = Subscription.new
 
-    authorize @subscribe
+    authorize @subscription
   end
+
+  def subscriptions
+    @subscription = Subscription.new(subscription_params)
+
+    if @subscription.save
+      @successful = true
+    else
+      @successful = false 
+      @notice = @subscription.errors.full_messages
+    end
+
+    authorize @subscription
+  end
+
 private
   def set_course
     @course = Course.find(params[:id])
@@ -72,7 +85,7 @@ private
     end
   end
 
-  def set_subscribe
-    
+  def subscription_params
+    params.require(:subscription).permit(:subscriber_id, :course_id)
   end
 end
