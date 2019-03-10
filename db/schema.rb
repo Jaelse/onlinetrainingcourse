@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_09_223914) do
+ActiveRecord::Schema.define(version: 2019_03_10_203557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,15 @@ ActiveRecord::Schema.define(version: 2019_03_09_223914) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["subscriber_id"], name: "index_courses_on_subscriber_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.bigint "course_id"
+    t.text "project"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "group_name"
+    t.index ["course_id"], name: "index_groups_on_course_id"
   end
 
   create_table "subscribers", force: :cascade do |t|
@@ -34,6 +43,16 @@ ActiveRecord::Schema.define(version: 2019_03_09_223914) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_subscribers_on_user_id"
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "subscriber_id"
+    t.bigint "course_id"
+    t.string "grade"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_subscriptions_on_course_id"
+    t.index ["subscriber_id"], name: "index_subscriptions_on_subscriber_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -50,5 +69,8 @@ ActiveRecord::Schema.define(version: 2019_03_09_223914) do
   end
 
   add_foreign_key "courses", "subscribers"
+  add_foreign_key "groups", "courses"
   add_foreign_key "subscribers", "users"
+  add_foreign_key "subscriptions", "courses"
+  add_foreign_key "subscriptions", "subscribers"
 end

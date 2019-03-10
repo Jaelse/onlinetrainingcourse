@@ -1,5 +1,8 @@
 class MainController < ApplicationController
-  before_action :subscribers_information!
+  before_action :subscribers_information! 
+  before_action :set_course, only: [:course_index]
+  before_action :set_group, only: [:groups]
+  before_action :set_subscribe, only: [:subscribe]
 
   after_action :verify_authorized
 
@@ -25,11 +28,36 @@ class MainController < ApplicationController
   end
 
   def courses_offered
-    @courses = Course.where(user_id: current_user.id)
+    @logged_in_user = Subscriber.where(user_id: current_user.id)
 
+    @logged_in_user = @logged_in_user.first
+
+    @courses = Course.where(subscriber_id: @logged_in_user)
+
+    puts @courses.first
     authorize @courses
   end
+
+  def course_index
+  end
+
+  def groups
+    
+  end
+
+  def subscribe
+    @subscribe = Subscription.new
+
+    authorize @subscribe
+  end
 private
+  def set_course
+    @course = Course.find(params[:id])
+    
+    authorize @course
+  end
+
+  
 
   def subscribers_information!
     if current_user
@@ -42,5 +70,9 @@ private
       end
 
     end
+  end
+
+  def set_subscribe
+    
   end
 end

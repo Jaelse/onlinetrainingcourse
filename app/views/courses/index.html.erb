@@ -15,10 +15,10 @@
     <% @courses.each do |course| %>
       <tr>
         <td><%= course.course_name %></td>
-        <td><%= course.subscriber %></td>
-        <td><%= link_to 'Show', course %></td>
-        <td><%= link_to 'Edit', edit_course_path(course) %></td>
-        <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= Subscriber.where( id: course.subscriber_id).first.fname %></td>
+        <td><%= link_to 'Show', course  %></td>
+        <td><%= link_to 'Edit', edit_course_path(course) if policy(@courses).update? %></td>
+        <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } if policy(@courses). destroy? %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +26,5 @@
 
 <br>
 
-<%= link_to 'New Course', new_course_path %>
+<%= link_to 'New Course', new_course_path if policy(@courses).create? %>
+<%= link_to 'Home', home_path %>

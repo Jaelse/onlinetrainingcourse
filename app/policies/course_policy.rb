@@ -10,9 +10,7 @@ class CoursePolicy < ApplicationPolicy
   end
 
   def show?
-    if user.user_role === 'admin'
-      true
-    end
+    true
   end
 
   def create?
@@ -40,5 +38,13 @@ class CoursePolicy < ApplicationPolicy
     end
   end
 
-  
+  def course_index?
+    true
+  end
+
+  def subscribe?
+    if user.user_role === 'student'
+      true
+    end
+  end
 end

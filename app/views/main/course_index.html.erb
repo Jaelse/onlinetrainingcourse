@@ -1,0 +1,14 @@
+
+<%= content_tag :h1 do%>
+    <%= @course.course_name %>
+<% end %>
+
+<%= content_tag :h3 do%>
+    <%= "By: "%><%= Subscriber.where(id: @course.subscriber_id).first.fname %>
+<%end%>
+
+
+<%= link_to 'Groups', filtered_groups_path(@course.id) %> <br>
+
+<%= link_to 'Subscribed Students', home_path %><br>
+<%= link_to 'Grade', home_path%>

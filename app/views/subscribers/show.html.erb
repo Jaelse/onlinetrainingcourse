@@ -30,5 +30,5 @@
   <%= @subscriber.dept %>
 </p>
 
-<%= link_to 'Edit', edit_subscriber_path(@subscriber) %> |
-<%= link_to 'Back', subscribers_path %>
+<%= link_to 'Edit', edit_subscriber_path(@subscriber) if policy(@subscriber).update? %>
+<%= link_to 'Back', home_path %>

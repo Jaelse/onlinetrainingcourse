@@ -9,8 +9,6 @@ class SubscriberPolicy < ApplicationPolicy
   def index?
     if user.user_role === 'admin'
       true
-    elsif user.user_role === 'admin'
-      true
     end
   end 
 
@@ -31,6 +29,12 @@ class SubscriberPolicy < ApplicationPolicy
     !Subscriber.where(user_id: user.id).exists?
   end
 
+  def update?
+    if user.user_role === 'instructor'
+      true
+    end
+  end
+
   def new?
     create?
   end
@@ -42,6 +46,7 @@ class SubscriberPolicy < ApplicationPolicy
       true
     end
   end
+
 
 
   def student?

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  subscriber: one
+  course: one
+  grade: MyString
+
+two:
+  subscriber: two
+  course: two
+  grade: MyString

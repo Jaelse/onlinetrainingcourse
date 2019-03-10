@@ -1,1 +1,5 @@
 <h1>Courses Offered</h1>
+
+    <% @courses.each_with_index do |course, i| %>
+        <%= course.course_name %><br> <%= link_to 'Show', course_index_path(course.id) %>
+    <% end %>

@@ -1,0 +1,12 @@
+
+<p>
+  <strong>Course name:</strong>
+  <%= Course.find(params[:course_id]).course_name %>
+</p>
+
+<p>
+  <strong>Subscriber:</strong>
+  <%= Subscriber.where(id: Course.find(params[:course_id]).subscriber_id).first.fname %>
+</p>
+
+<h4>Do you want subscribe this Course?</h4> 
