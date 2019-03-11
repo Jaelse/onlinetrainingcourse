@@ -1,8 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Group name:</strong>
+  <%= @group.group_name %>
+</p>
+
+<p>
   <strong>Course:</strong>
-  <%= @group.course %>
+  <%= @group.course.course_name %>
 </p>
 
 <p>
@@ -10,5 +15,7 @@
   <%= @group.project %>
 </p>
 
+<%= link_to 'Members', show_members_path(@group) if policy(@group).add_member? %> |
+<%= link_to 'Add members', add_members_path(@group) if policy(@group).add_member? %> |
 <%= link_to 'Edit', edit_group_path(@group) %> |
-<%= link_to 'Back', groups_path %>
+<%= link_to 'Back', filtered_groups_path(@group.course  ) %>

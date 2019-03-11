@@ -2,9 +2,9 @@
 
 <%= 'Welcome '+@logged_in_user.fname+' '+@logged_in_user.lname%> <br>
 <%= link_to 'Your Informations', subscriber_path(@logged_in_user.id) %></br>
-<%= link_to 'Course Taken', courses_path if policy(@logged_in_user).student? %></br>
+<%= link_to 'Course Taken', courses_taken_path if policy(@logged_in_user).student? %></br>
 <%= link_to 'Course Offered', courses_offered_path if policy(@logged_in_user).instructor? %></br>
-<%= link_to 'Grades', courses_path if policy(@logged_in_user).student? %></br>
+<%= link_to 'Grades', grades_path if policy(@logged_in_user).student? %></br>
 <%= link_to 'All Courses', courses_path %></br>
 
 <%= link_to 'All Students', students_list_path if policy(@logged_in_user).instructor? %></br>

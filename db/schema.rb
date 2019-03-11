@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_10_203557) do
+ActiveRecord::Schema.define(version: 2019_03_11_220920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "attendances", force: :cascade do |t|
+    t.bigint "subscription_id"
+    t.date "class_date"
+    t.bigint "course_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_attendances_on_course_id"
+    t.index ["subscription_id"], name: "index_attendances_on_subscription_id"
+  end
 
   create_table "courses", force: :cascade do |t|
     t.string "course_name"
@@ -30,6 +40,16 @@ ActiveRecord::Schema.define(version: 2019_03_10_203557) do
     t.datetime "updated_at", null: false
     t.string "group_name"
     t.index ["course_id"], name: "index_groups_on_course_id"
+  end
+
+  create_table "logs", force: :cascade do |t|
+    t.bigint "course_id"
+    t.date "class_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "class_started"
+    t.boolean "class_ended"
+    t.index ["course_id"], name: "index_logs_on_course_id"
   end
 
   create_table "subscribers", force: :cascade do |t|
@@ -51,7 +71,9 @@ ActiveRecord::Schema.define(version: 2019_03_10_203557) do
     t.string "grade"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "group_id"
     t.index ["course_id"], name: "index_subscriptions_on_course_id"
+    t.index ["group_id"], name: "index_subscriptions_on_group_id"
     t.index ["subscriber_id"], name: "index_subscriptions_on_subscriber_id"
   end
 
@@ -68,9 +90,13 @@ ActiveRecord::Schema.define(version: 2019_03_10_203557) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "attendances", "courses"
+  add_foreign_key "attendances", "subscriptions"
   add_foreign_key "courses", "subscribers"
   add_foreign_key "groups", "courses"
+  add_foreign_key "logs", "courses"
   add_foreign_key "subscribers", "users"
   add_foreign_key "subscriptions", "courses"
+  add_foreign_key "subscriptions", "groups"
   add_foreign_key "subscriptions", "subscribers"
 end

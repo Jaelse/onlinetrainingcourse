@@ -14,7 +14,7 @@
     <% @groups.each do |group| %>
       <tr>
         <td><%= group.group_name%></td>
-        <td><%= group.course %></td>
+        <td><%= group.course.course_name %></td>
         <td><%= group.project %></td>
         <td><%= link_to 'Show', group %></td>
         <td><%= link_to 'Edit', edit_group_path(group) %></td>
@@ -27,3 +27,4 @@
 <br>
 
 <%= link_to 'New Group', new_specific_group_path(params[:id]) if policy(@groups).create? %>
+<%= link_to 'Home', home_path %>

@@ -1,2 +1,5 @@
-<%= content_tag :h1, @successful %>
-<%= @notice     %>
+<% if @successful %>
+    <%= content_tag :h3, "You have successfully subscribed this course"  %>
+<% end %>
+
+<%= link_to 'Home', home_path %>

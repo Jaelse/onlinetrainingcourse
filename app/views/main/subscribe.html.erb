@@ -9,7 +9,7 @@
   <%= Subscriber.where(id: Course.find(params[:course_id]).subscriber_id).first.fname %>
 </p>
 
-<h4>Do you want subscribe this Course?</h4> 
+<h4>Do you want to subscribe this Course?</h4> 
 
 <%= form_for(@subscription, local: true) do |form| %>
   <% if @subscription.errors.any? %>

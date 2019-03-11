@@ -14,4 +14,14 @@ class GroupPolicy < ApplicationPolicy
       true
     end
   end
+
+  def show?
+    true
+  end
+
+  def add_member?
+    if user.user_role === 'instructor'
+      true
+    end
+  end
 end

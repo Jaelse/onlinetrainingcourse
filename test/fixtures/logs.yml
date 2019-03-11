@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  course: one
+  class_date: 2019-03-12
+  class_start: 2019-03-12 02:07:53
+  class_end: 2019-03-12 02:07:53
+
+two:
+  course: two
+  class_date: 2019-03-12
+  class_start: 2019-03-12 02:07:53
+  class_end: 2019-03-12 02:07:53

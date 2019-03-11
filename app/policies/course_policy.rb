@@ -47,4 +47,16 @@ class CoursePolicy < ApplicationPolicy
       true
     end
   end
+
+  def takeattendance?
+    if user.user_role === 'instructor'
+      true
+    end
+  end
+
+  def give_attendance?
+    if user.user_role === 'student'
+      true
+    end
+  end
 end

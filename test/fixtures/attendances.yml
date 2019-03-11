@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  subscription: one
+  class_date: 2019-03-12
+  course: one
+
+two:
+  subscription: two
+  class_date: 2019-03-12
+  course: two

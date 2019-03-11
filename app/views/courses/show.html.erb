@@ -10,6 +10,17 @@
   <%= Subscriber.where(id: @course.subscriber_id).first.fname %>
 </p>
 
-<%= link_to 'Subscribe', subscribe_path(@course) if policy(@course).subscribe? %>
+<% if policy(@course).subscribe? %>
+  <% if Subscription.find_by( subscriber_id: Subscriber.find_by(user_id: current_user.id).id, course_id: @course.id).nil? %>  
+    <%= link_to 'Subscribe', subscribe_path(@course)%>
+  <% end %>
+<% end %>
+
+<% if policy(@course).subscribe? %>
+  <% if !Subscription.find_by( subscriber_id: Subscriber.find_by(user_id: current_user.id).id, course_id: @course.id).nil? %>  
+    <%= link_to 'Unsubscribe', unsubscriptions_path(@course), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
+<% end %>
+
 <%= link_to 'Edit', edit_course_path(@course) if policy(@course).update? %>
 <%= link_to 'Back', home_path %>

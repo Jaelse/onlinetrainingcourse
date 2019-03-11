@@ -7,8 +7,12 @@
     <%= "By: "%><%= Subscriber.where(id: @course.subscriber_id).first.fname %>
 <%end%>
 
+<%= link_to 'Take Attendance', attendance_path(@course) if policy(@course).takeattendance? %> <br>
+<%= link_to 'Give Attendance', give_attendance_path(@course) if policy(@course).give_attendance? %><br>
 
 <%= link_to 'Groups', filtered_groups_path(@course.id) %> <br>
 
-<%= link_to 'Subscribed Students', home_path %><br>
-<%= link_to 'Grade', home_path%>
+<%= link_to 'Subscribed Students', subscribed_students_path(@course) %><br>
+<%= link_to 'Grade', grades_path %><br>
+
+<%= link_to 'Home', home_path%>
