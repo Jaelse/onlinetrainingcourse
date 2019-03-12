@@ -1,0 +1,29 @@
+<h1>Search Result</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Citizen ID</th>
+      <th>Student ID</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @students_filtered.each do |student| %>
+      <tr>
+        <td><%= student.fname %></td>
+        <td><%= student.lname %></td>
+        <td><%= student.citizenid %></td>
+        <td><%= student.insorstid %></td>
+         <td><%= link_to 'Show', student %></td>
+        <td><%= link_to 'Edit', edit_subscriber_path(student) %></td>
+        <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "back", students_list_path %>

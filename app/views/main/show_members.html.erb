@@ -1,4 +1,31 @@
-<h1>Members of </h1>
+<h1>Members of <%= Group.find(params[:group]).group_name %></h1>
 
+<table>
+  <thead>
+    <tr>
+      <th>Fname</th>
+      <th>Lname</th>
+      <th>Citizenid</th>
+      <th>student id</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @members.each do |member|%>
+      <tr>
+        <td><%= Subscriber.find(Subscription.find(member.id).subscriber_id).fname %></td>
+        <td><%= Subscriber.find(Subscription.find(member.id).subscriber_id).lname %></td>
+        <td><%= Subscriber.find(Subscription.find(member.id).subscriber_id).citizenid %></td>
+        <td><%= Subscriber.find(Subscription.find(member.id).subscriber_id).insorstid %></td>
+        <% if !Subscription.find_by(id: member.id, group_id: params[:group]).nil? %>
+            <td><%= link_to "Remove", removed_members_path(Attendance.find_by(subscription_id: member.id), params[:group], member.course_id) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Add members', add_members_path(params[:group],Group.find(params[:group]).course_id) if policy(@members).add_members? %>
 
 <%= link_to 'Home', home_path %>

@@ -1,0 +1,33 @@
+<h1>members for <%= @group_info.group_name %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Fname</th>
+      <th>Lname</th>
+      <th>Citizenid</th>
+      <th>student id</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @members.each do |member|%>
+      <tr>
+            <td><%= Subscriber.find(member.subscriber_id).fname %></td>
+            <td><%= Subscriber.find(member.subscriber_id).lname %></td>
+            <td><%= Subscriber.find(member.subscriber_id).citizenid %></td>
+            <td><%= Subscriber.find(member.subscriber_id).insorstid %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Submit project', submit_or_edit_group_path(@group_info)%>
+<br>
+<%= link_to 'See project', group_path(@group_info)%>
+
+
+<br>
+
+<%= link_to 'Home', home_path %>

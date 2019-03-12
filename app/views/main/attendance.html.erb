@@ -1,13 +1,5 @@
-<% if @started %>
-    <%= content_tag :h1, "Classes started"%>
-    <%= link_to 'finish class', finished_class_path(params[:course_id]) if policy(@start_class).finished_class?%>
-<% elsif @class_going %>
-    <%= content_tag :h1, "Class Still going on" %>
-    <%= link_to 'finish class', finished_class_path(params[:course_id]) if policy(@start_class).finished_class?%>
-<% elsif @finished %>
-    <%= content_tag :h1, "Class Ended" %>
-<% end %>
 <br>
+<h2> Attending Students </h2>
 <table>
   <thead>
     <tr>
@@ -28,5 +20,15 @@
     <% end %>
   </tbody>
 </table>
+
+<% if @started %>
+    <%= content_tag :p, "Classes started"%>
+    <%= link_to 'finish class', finished_class_path(params[:course_id]) if policy(@start_class).finished_class?%>
+<% elsif @class_going %>
+    <%= content_tag :p, "Class Still going on" %>
+    <%= link_to 'finish class', finished_class_path(params[:course_id]) if policy(@start_class).finished_class?%>
+<% elsif @finished %>
+    <%= content_tag :p, "Class Ended" %>
+<% end %>
 
 <%= link_to 'home', home_path %>

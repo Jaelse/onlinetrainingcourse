@@ -16,6 +16,5 @@
 </p>
 
 <%= link_to 'Members', show_members_path(@group) if policy(@group).add_member? %> |
-<%= link_to 'Add members', add_members_path(@group) if policy(@group).add_member? %> |
 <%= link_to 'Edit', edit_group_path(@group) %> |
 <%= link_to 'Back', filtered_groups_path(@group.course  ) %>

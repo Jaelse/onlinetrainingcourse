@@ -20,10 +20,34 @@ class MainController < ApplicationController
   end
 
   def students_list
-    @students = Subscriber.where(substype: '2')
-    puts @students.first
+    @students = Subscriber.where(substype: '1')
+    
 
     authorize @students
+  end
+
+  def students_list_filtered
+
+    if params.has_key?(:fname)
+      @students_filtered = Subscriber.where( fname: params[:fname], substype: '1')
+    elsif params.has_key?(:lname)
+      @students_filtered = Subscriber.where( lname: params[:lname], substype: '1')
+    elsif params.has_key?(:insorstid)
+      @students_filtered = Subscriber.where( insorstid: params[:lname], substype: '1')
+    end
+
+    authorize @students_filtered
+  end
+
+  def group_filtered
+
+    if params.has_key?(:group_name)
+      @group = Group.find_by( group_name: params[:group_name])
+
+      @subscription_filtered = Subscription.where( group_id: @group.id)
+    end
+
+    authorize @subscription_filtered
   end
 
   def courses_offered
@@ -35,6 +59,42 @@ class MainController < ApplicationController
 
     puts @courses.first
     authorize @courses
+  end
+
+  def all_group
+    @groups = Group.all    
+
+    authorize @groups
+  end
+
+  def my_group
+    @logged_in_user = Subscriber.where(user_id: current_user.id)
+
+    @group = Subscription.find_by(subscriber_id: @logged_in_user.first.id, course_id: params[:course_id]).group_id
+
+    @members = Subscription.where( group_id: @group)
+    @group_info = Group.find(@group)
+
+    authorize @group_info
+  end
+
+  def submit_or_edit_group
+    @group = Group.find(params[:group])
+
+    authorize @group
+  end
+
+  def changed_group
+    @pramams_group = params[:group]
+    @group = Group.find(@pramams_group[:id])
+    @group.group_name = @pramams_group[:group_name]
+    @group.project = @pramams_group[:project]
+
+    @group.save
+
+    redirect_to proc {group_url(@pramams_group[:id])}
+
+    authorize @group
   end
 
   def course_index
@@ -93,7 +153,21 @@ class MainController < ApplicationController
   end
 
   def grades
-  
+    @subsribed_students = Subscription.where(course_id: params[:course])
+
+    authorize @subsribed_students
+  end
+
+  def add_grade
+    @subscription = Subscription.find(params[:subcription])
+
+    @subscription.grade = params[:grade]
+
+    @subscription.save
+
+    redirect_to proc {grades_url(@subscription.course_id)}
+
+    authorize @subscription
   end
 
   def subscribed_students
@@ -104,12 +178,46 @@ class MainController < ApplicationController
     authorize @subsribed_students
   end
 
-  def add_members 
-  
+  def add_members
+    @subscription = Subscription.new 
+    @attendings = Attendance.where( course_id: params[:course], class_date: Date.current()) 
+    puts @attendings.first.id
+
+    authorize @subscription
+  end
+
+  def added_members
+    @attendance = Attendance.find(params[:attendance])
+
+    @subscription = Subscription.find_by( id: @attendance.subscription_id, course_id: params[:course])
+
+    @subscription.group_id = params[:group]
+
+    @subscription.save
+
+    redirect_to proc { add_members_url(params[:group], params[:course])}
+
+    authorize @subscription
+  end
+
+  def removed_members
+    @attendance = Attendance.find(params[:attendance])
+
+    @subscription = Subscription.find_by( id: @attendance.subscription_id, course_id: params[:course], group_id: params[:group])
+
+    @subscription.group_id = nil
+
+    @subscription.save
+
+    redirect_to proc { add_members_url(params[:group], params[:course])}
+
+    authorize @subscription
   end
 
   def show_members
-    
+    @members = Subscription.where(group_id: params[:group])
+
+    authorize @members
   end
 
   def attendance

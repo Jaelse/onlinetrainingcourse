@@ -26,5 +26,6 @@
 
 <br>
 
-<%= link_to 'New Group', new_specific_group_path(params[:id]) if policy(@groups).create? %>
+<%= link_to 'New Group', new_specific_group_path(params[:course_id]) if policy(@groups).create? %>
+<%= link_to 'My Group', my_group_path(params[:course_id]) if policy(@groups).my_group? %>
 <%= link_to 'Home', home_path %>

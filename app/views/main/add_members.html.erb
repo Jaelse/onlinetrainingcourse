@@ -1,4 +1,35 @@
-<h1>Add members </h1>
+<h1>Add members for <%= Group.find(params[:group]).group_name %></h1>
 
+<table>
+  <thead>
+    <tr>
+      <th>Fname</th>
+      <th>Lname</th>
+      <th>Citizenid</th>
+      <th>student id</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @attendings.each do |attending|%>
+      <tr>
+        <% if Subscription.find_by( id: attending.subscription_id, course_id: params[:course]).group_id.nil? %>
+            <td><%= Subscriber.find(Subscription.find(attending.subscription_id).subscriber_id).fname %></td>
+            <td><%= Subscriber.find(Subscription.find(attending.subscription_id).subscriber_id).lname %></td>
+            <td><%= Subscriber.find(Subscription.find(attending.subscription_id).subscriber_id).citizenid %></td>
+            <td><%= Subscriber.find(Subscription.find(attending.subscription_id).subscriber_id).insorstid %></td>
+            <% if Subscription.find_by( id: attending.subscription_id, course_id: params[:course], group_id: params[:group]).nil? %>
+                <td><%= link_to "Add", added_members_path(attending.id, params[:group], params[:course]) %></td>
+            <% elsif !Subscription.find_by( id: attending.subscription_id, course_id: params[:course], group_id: params[:group]).nil? %>
+                <td><%= link_to "Remove", removed_members_path(attending.id, params[:group], params[:course]) %></td>
+            <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
 
 <%= link_to 'Home', home_path %>

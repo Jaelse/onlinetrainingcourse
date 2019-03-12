@@ -1,1 +1,35 @@
 <h1>Your Grades</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Fname</th>
+      <th>Lname</th>
+      <th>Citizenid</th>
+      <th>student id</th>
+      <th>Grade</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @subsribed_students.each do |subscriptions|%>
+      <tr>
+        <td><%= Subscriber.find(Subscription.find(subscriptions.id).subscriber_id).fname %></td>
+        <td><%= Subscriber.find(Subscription.find(subscriptions.id).subscriber_id).lname %></td>
+        <td><%= Subscriber.find(Subscription.find(subscriptions.id).subscriber_id).citizenid %></td>
+        <td><%= Subscriber.find(Subscription.find(subscriptions.id).subscriber_id).insorstid %></td>
+        <td><%= Subscription.find(subscriptions.id).grade %></td>
+        <td><%= link_to "A", add_grade_path(subscriptions, "A") %></td>
+        <td><%= link_to "B+", add_grade_path(subscriptions, "B+") %></td>
+        <td><%= link_to "B", add_grade_path(subscriptions, "B") %></td>
+        <td><%= link_to "C+", add_grade_path(subscriptions, "C+") %></td>
+        <td><%= link_to "C", add_grade_path(subscriptions, "C") %></td>
+        <td><%= link_to "D", add_grade_path(subscriptions, "D") %></td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Home", home_path %>

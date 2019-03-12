@@ -29,8 +29,8 @@ class GroupsController < ApplicationController
   end
 
   def filtered_groups
-    @groups = Group.where( course_id: params[:id])
-
+    @groups = Group.where( course_id: params[:course_id])
+    
     authorize @groups
   end
 

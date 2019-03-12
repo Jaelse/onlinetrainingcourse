@@ -18,6 +18,8 @@ class SubscriberPolicy < ApplicationPolicy
       true
     elsif user.user_role === 'admin'
       true
+    elsif user.user_role === 'instructor'
+      true
     end
   end
 
@@ -61,4 +63,9 @@ class SubscriberPolicy < ApplicationPolicy
     end
   end
 
+  def students_list_filtered?
+    if user.user_role === 'instructor'
+      true
+    end
+  end
 end

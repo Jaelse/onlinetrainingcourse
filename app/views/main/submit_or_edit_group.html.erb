@@ -1,0 +1,13 @@
+<h1> Submit your project </h1>
+
+<%= form_for @group, :url => changed_group_path, method: :post do |f| %>
+ <%= f.label :group_name %>
+ <%= f.text_field :group_name %>
+
+ <%= f.label :project %>
+ <%= f.text_field :project %>
+
+<%= f.hidden_field :id, :value => @group.id %>
+<%= f.hidden_field :course_id, :value => @group.course_id %>
+<%= submit_tag "Submit", :class => "btn btn-primary pull-right join-button" %>
+<% end %>
